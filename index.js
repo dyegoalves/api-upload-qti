@@ -1,19 +1,26 @@
 const express = require("express");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" });
+const { v4: uuidv4 } = require("uuid");
 
 const app = express();
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, uuidv4() + "-" + file.originalname);
+  },
+});
+const upload = multer({ storage: storage });
+
+app.get("/", (req, res) => {
+  res.json({ mensage: "Rodando APP na port 80" });
+});
 
 app.post("/upload", upload.single("file"), (req, res) => {
-  // Obtém o caminho do arquivo enviado
-  const file = req.file;
-  // Define o caminho onde o arquivo será salvo
-  const filePath = "./uploads/" + file.originalname;
-  // Escreve o arquivo no disco
-  fs.writeFileSync(filePath, file.buffer);
-  res.send("Arquivo salvo com sucesso!");
+  res.json({ file: req.file });
 });
 
 app.listen(80, () => {
-  console.log("API rodando na porta 80");
+  console.log("Server started on PORT 80");
 });
