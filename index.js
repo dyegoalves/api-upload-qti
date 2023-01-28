@@ -34,6 +34,6 @@ app.post("/upload", (req, res) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log("API rodando na porta 3000!");
+app.listen(80, () => {
+  console.log("API rodando na porta 80!");
 });
