@@ -12,6 +12,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage }).single("file");
 
+app.get("/", (req, res) => {
+  return res.status(200).json({
+    message: "OK CONECT",
+  });
+});
+
 app.post("/upload", (req, res) => {
   upload(req, res, (err) => {
     if (err) {
