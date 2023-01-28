@@ -28,7 +28,11 @@ app.post("/upload", (req, res) => {
       });
     } else {
       const zip = new AdmZip(req.file.path);
-      zip.extractAllTo("unzip/" + uuid.v4(), /*overwrite*/ true);
+      const nomeuuid = uuid.v4();
+      zip.extractAllTo("unzip/" + nomeuuid, /*overwrite*/ true);
+
+      console.log("Arquivo:" + nomeuuid + "OK salvo");
+
       return res.status(200).json({
         message: "Arquivo descompactado com sucesso!",
       });
