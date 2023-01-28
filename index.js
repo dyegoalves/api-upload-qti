@@ -31,7 +31,7 @@ app.post("/upload", (req, res) => {
       const nomeuuid = uuid.v4();
       zip.extractAllTo("unzip/" + nomeuuid, /*overwrite*/ true);
 
-      console.log("Arquivo:" + nomeuuid + "OK salvo");
+      console.log("Arquivo: " + nomeuuid + " - OK salvo");
 
       return res.status(200).json({
         message: "Arquivo descompactado com sucesso!",
